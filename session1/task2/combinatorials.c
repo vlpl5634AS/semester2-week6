@@ -16,6 +16,32 @@ int factorial(int n) {
   return n * factorial(n - 1);
 }
 
+/**
+ * @brief calculate n factorial
+ * 
+ * @param n number to find factorial of.
+ * @return int n factorial.
+ */
+int n_factorial(int n) {
+  if (n < 0) {
+    return -1; // error case for negative numbers
+  }
+  return factorial(n);
+}
+
+/**
+ * @brief calculate r factorial
+ * 
+ * @param r number to find factorial of.
+ * @return int r factorial.
+ */
+int r_factorial(int r) {
+  if (r < 0) {
+    return -1; // error case for negative numbers
+  }
+  return factorial(r);
+}
+
 int main(int argc, char **argv) {
   /*
   The program should accept a command line argument as follows:
@@ -40,4 +66,35 @@ int main(int argc, char **argv) {
   You should try and use functions to write your program.
 
   */
+  if (argc != 4) {
+    printf("Usage: ./combinatorials n C|P r\n");
+    return 1;
+  }
+  else if (argc == 4) {
+    int n = atoi(argv[1]);
+    char operation = argv[2][0];
+    int r = atoi(argv[3]);
+
+    if (n < 0 || r < 0 || r > n) {
+      printf("Error: n and r must be positive integers, and r must be less than or equal to n.\n");
+      return 1;
+    }
+
+    if (operation == 'C') {
+      int result = n_factorial(n) / (r_factorial(r) * factorial(n - r));
+      printf("nCr: %d\n", result);
+
+    } else if (operation == 'P') {
+      int result = n_factorial(n) / factorial(n - r);
+      printf("nPr: %d\n", result);
+
+    } else {
+      printf("Error: Operation must be 'C' for combinations or 'P' for permutations.\n");
+      return 1;
+    }
+  {
+    /* code */
+  }
+  return 0;
+}
 }
