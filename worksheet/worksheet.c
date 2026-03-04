@@ -49,7 +49,7 @@ int find_max(int *arr, int n, int *index);
  */
 int add_values(int a, int b) {
   // TODO: Implement this function
-  return 0; // Replace this
+  return a + b;
 }
 
 /**
@@ -70,6 +70,10 @@ int add_values(int a, int b) {
 void swap_values(int *a, int *b) {
   // TODO: Implement this function
   // Hint: You'll need a temporary variable
+  int temp = *a;
+  *a = *b;
+  *b = temp;
+  return; // No return value since it's void
 }
 
 /**
@@ -86,7 +90,11 @@ void swap_values(int *a, int *b) {
  */
 int sum_array(int *arr, int n) {
   // TODO: Implement this function
-  return 0; // Replace this
+  int sumOfElements = 0;
+  for (int i = 0; i < n; ++i) {
+    sumOfElements += arr[i];
+  }
+  return sumOfElements;
 }
 
 /**
@@ -107,6 +115,12 @@ int sum_array(int *arr, int n) {
  */
 void reverse_array(int *arr, int n) {
   // TODO: Implement this function
+  for (int i = 0; i < n / 2; ++i) {
+    int temp = arr[i]; //store value in temp variable (element is on the lhs)
+    arr[i] = arr[n - 1 - i]; // the element stored on the right side of arrays is assigned to the left side of the array
+    arr[n - 1 - i] = temp; // value stored in temp variable is assigned to the right side of the array
+  }
+  return; // No return value since it's void
 }
 
 /**
@@ -125,7 +139,9 @@ void reverse_array(int *arr, int n) {
 double average(int *arr, int n) {
   // TODO: Implement this function
   // Hint: Be careful with integer division!
-  return 0.0; // Replace this
+  int sumOfElements = sum_array(arr, n); //call the function that i previously implemented to calculate the sum of the elements in the array
+  return (double)sumOfElements / n; // perform the division and set the result to double to get the average stored as a double value as requested
+ 
 }
 
 /**
@@ -148,8 +164,13 @@ double average(int *arr, int n) {
  */
 int find_max(int *arr, int n, int *index) {
   // TODO: Implement this function
-  *index = 0;
-  return 0; // Replace this
+  *index = 0; //set the index of max to first elemenet of array
+  for (int i = 1; i < n; ++i) {
+    if (arr[i] > arr[*index]) { //compare the current element in the lloop with the current maximum value
+      *index = i; //update the index of the maximum value
+    }
+  }
+  return arr[*index]; //return the maximum value found in the array
 }
 
 /* ============================================================
