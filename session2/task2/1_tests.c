@@ -37,8 +37,25 @@ void test_obvious_palindrome(void) {
  * 1. Call TEST_CHECK(condition) to verify a condition
  * 2. Use TEST_MSG("message") to explain what went wrong if it fails
  * ============================================================ */
+void test_single_char(void) {
+    TEST_CHECK(is_palindrome("a") == 1);
+    TEST_MSG("Expected single character 'a' to be a palindrome");
+}
 
+void test_empty_string(void) {
+    TEST_CHECK(is_palindrome("") == 1);
+    TEST_MSG("Expected empty string to be a palindrome");
+}
 
+void test_non_palindrome(void) {
+    TEST_CHECK(is_palindrome("hello") == 0);
+    TEST_MSG("Expected 'hello' to not be a palindrome");
+}
+
+void test_even_length_palindrome(void) {
+    TEST_CHECK(is_palindrome("abba") == 1);
+    TEST_MSG("Expected 'abba' to be a palindrome");
+}
 
 /* ============================================================
  * TEST_LIST - Register all your tests here
@@ -48,10 +65,10 @@ void test_obvious_palindrome(void) {
  * ============================================================ */
 TEST_LIST = {
     { "obvious palindrome (racecar)", test_obvious_palindrome },
-    /* TODO: Add your tests here, e.g.:
-     * { "single character", test_single_char },
-     * { "empty string", test_empty_string },
-     */
+    { "single character", test_single_char },
+    { "empty string", test_empty_string },
+    { "non-palindrome", test_non_palindrome },
+    { "even-length palindrome", test_even_length_palindrome },
     { NULL, NULL }
 };
 

@@ -19,6 +19,11 @@ int main(void) {
   // you can add a single point like this:
   add_point(grid, x, y);
   draw_grid(grid);
+ 
+  reflect_point(&x, &y, 'x'); // reflect across x axis
+  swap_coords(&x, &y); // swap x and y
+  add_point(grid, x, y);
+  draw_grid(grid);
 
   // if you want to 'reset' and remove things, you can re-init it to clear
   grid = initialize_grid();
@@ -38,6 +43,8 @@ int main(void) {
 void move_point(int *x, int *y, int dx, int dy) {
   // update the coordinates by the given delta
   // i.e. (x+dx, y+dy)
+  *x += dx;
+  *y += dy;
 }
 
 /**
@@ -51,6 +58,11 @@ void reflect_point(int *x, int *y, char axis) {
   // reflect the point across the given axis
   // e.g. reflect (7,3) across the X axis -> (7,-3)
   // across the y axis -> (-7, 3)
+  if (axis == 'x' || axis == 'X') {
+    *y = -*y; // Reflect across X-axis
+  } else if (axis == 'y' || axis == 'Y') {
+    *x = -*x; // Reflect across Y-axis
+  }
 }
 
 /**
@@ -61,6 +73,9 @@ void reflect_point(int *x, int *y, char axis) {
  */
 void swap_coords(int *x, int *y) {
   // swap the x and y values of a coordinate
+  int temp = *x; // Store x in a temporary variable
+  *x = *y;       // Assign y to x
+  *y = temp;     // Assign the original x (stored in temp) to y
 }
 
 /**

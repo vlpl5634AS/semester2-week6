@@ -31,4 +31,14 @@ int main(void) {
  */
 void bubbleSort(int array[], int n) {
   // code goes here
+  for (int i = 0; i < n - 1; i++) {
+    for (int j = 0; j < n - i - 1; j++) {
+      if (array[j] > array[j + 1]) {
+        // Swap array[j] and array[j+1]
+        int temp = array[j]; // Store the current element in a temporary variable
+        array[j] = array[j + 1]; // Assign the next element to the current position
+        array[j + 1] = temp; // Assign the original current element (stored in temp) to the next position
+      }
+    }
+  }
 }

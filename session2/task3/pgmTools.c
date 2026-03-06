@@ -9,13 +9,13 @@ void printImage(unsigned char **p, int a, int b);
 
 int main(int argc, unsigned char **argv) {
   if (argc != 2) {
-    printf("Usage: ./pgmTools image_path\n");
+    printf("Usage: ./pgmTools image_path\n"); // error message if the user does not provdie the required number of arguments
     return 0;
   }
 
   int a, b;
   unsigned char **i;
-  i = read(argv[1], &a, &b);
+  i = read(argv[1], &a, &b); 
 
   int c = -1;
 
@@ -23,7 +23,7 @@ int main(int argc, unsigned char **argv) {
     c = -1;
     menu();
     while (c < 1)
-      c = getUserInput("Enter choice");
+      c = getUserInput("Enter choice"); //get user input and validate it, if the user input is not a number or is less than 1, it will keep asking for input until a valid input is provided
 
     switch (c) {
     case 1:
@@ -96,6 +96,49 @@ void printImage(unsigned char **p, int a, int b) {
     for (int j = 0; j < b; j++) {
       printf("%d%s", p[i][j],
              (p[i][j] < 100) ? (p[i][j] < 10) ? "   " : "  " : " ");
+    }
+    printf("\n");
+  }
+
+}
+
+void invertImage(unsigned char **p, int a, int b) {
+  for (int i = 0; i < a; i++) {
+    for (int j = 0; j < b; j++) {
+      p[i][j] = 255 - p[i][j];
+    }
+    printf("\n");
+  }
+}
+
+void rotateImage(unsigned char **p, int a, int b) {
+  unsigned char **temp = allocateArray(b, a);
+  for (int i = 0; i < a; i++) {
+    for (int j = 0; j < b; j++) {
+      temp[j][a - 1 - i] = p[i][j];
+    }
+  }
+  for (int i = 0; i < b; i++) {
+    for (int j = 0; j < a; j++) {
+      p[i][j] = temp[i][j];
+    }
+    printf("\n");
+  }
+}
+
+void scaleImage(unsigned char **p, int a, int b) {
+  unsigned char **temp = allocateArray(a * 2, b * 2);
+  for (int i = 0; i < a; i++) {
+    for (int j = 0; j < b; j++) {
+      temp[i * 2][j * 2] = p[i][j];
+      temp[i * 2 + 1][j * 2] = p[i][j];
+      temp[i * 2][j * 2 + 1] = p[i][j];
+      temp[i * 2 + 1][j * 2 + 1] = p[i][j];
+    }
+  }
+  for (int i = 0; i < a * 2; i++) {
+    for (int j = 0; j < b * 2; j++) {
+      p[i][j] = temp[i][j];
     }
     printf("\n");
   }
